@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31911.196
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DefinetlyNotBadAudioExtractionTool", "DefinetlyNotBadAudioExtractionTool\DefinetlyNotBadAudioExtractionTool.csproj", "{AFA73976-A28E-48CB-9788-E3489B47D533}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DefinetlyNotBadAudioExtractionTool", "DefinetlyNotBadAudioExtractionTool\DefinetlyNotBadAudioExtractionTool.csproj", "{AFA73976-A28E-48CB-9788-E3489B47D533}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NameFinder", "AudioNamer\NameFinder.csproj", "{133489E1-AF68-4994-8AEB-8072C8D07BF1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Renamer", "Renamer\Renamer.csproj", "{21D687A4-FF59-4069-AA0B-BDF82D8CA575}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{AFA73976-A28E-48CB-9788-E3489B47D533}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AFA73976-A28E-48CB-9788-E3489B47D533}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AFA73976-A28E-48CB-9788-E3489B47D533}.Release|Any CPU.Build.0 = Release|Any CPU
+		{133489E1-AF68-4994-8AEB-8072C8D07BF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{133489E1-AF68-4994-8AEB-8072C8D07BF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{133489E1-AF68-4994-8AEB-8072C8D07BF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{133489E1-AF68-4994-8AEB-8072C8D07BF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21D687A4-FF59-4069-AA0B-BDF82D8CA575}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21D687A4-FF59-4069-AA0B-BDF82D8CA575}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21D687A4-FF59-4069-AA0B-BDF82D8CA575}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21D687A4-FF59-4069-AA0B-BDF82D8CA575}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

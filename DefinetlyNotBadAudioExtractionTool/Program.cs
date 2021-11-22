@@ -44,7 +44,7 @@ namespace DefinetlyNotBadAudioExtractionTool
                         }
                     }
                     Console.WriteLine("Creating " + args[0] + "\\Exported");
-                    Directory.CreateDirectory(Path.Combine(args[0], "Exported"));
+                    Directory.CreateDirectory(Path.Combine(args[0], "Exported", "Unknown"));
 
                     string[] files = Directory.GetFiles(args[0], "*.uexp");
                     foreach (string file in files)
@@ -79,6 +79,9 @@ namespace DefinetlyNotBadAudioExtractionTool
                                 else
                                 {
                                     Console.WriteLine("Invalid file");
+                                    File.Copy(ubulkPath, Path.Combine(args[0], "Exported", "Unknown", assetId + ".ubulk"));
+                                    File.Copy(file, Path.Combine(args[0], "Exported", "Unknown", assetId + ".uexp"));
+                                    File.Copy(ubulkPath, Path.Combine(args[0], "Exported", assetId + ".ubulk"));
                                     filesBadHeaderSingle++;
                                 }
                             }
@@ -127,18 +130,24 @@ namespace DefinetlyNotBadAudioExtractionTool
                                     } else
                                     {
                                         Console.WriteLine("Invalid chunk 2, bad header");
+                                        File.Copy(ubulkPath, Path.Combine(args[0], "Exported", "Unknown", assetId + ".ubulk"));
+                                        File.Copy(file, Path.Combine(args[0], "Exported", "Unknown", assetId + ".uexp"));
                                         filesBadHeaderC2++;
                                     }
                                 }
                                 else
                                 {
                                     Console.WriteLine("Invalid file");
+                                    File.Copy(ubulkPath, Path.Combine(args[0], "Exported", "Unknown", assetId + ".ubulk"));
+                                    File.Copy(file, Path.Combine(args[0], "Exported", "Unknown", assetId + ".uexp"));
                                     filesBadHeaderC1++;
                                 }
                             }
                             else
                             {
                                 Console.WriteLine("Multi-chunk asset found. This is not handled. Skipping");
+                                File.Copy(ubulkPath, Path.Combine(args[0], "Exported", "Unknown", assetId + ".ubulk"));
+                                File.Copy(file, Path.Combine(args[0], "Exported", "Unknown", assetId + ".uexp"));
                                 Console.WriteLine("File Length" + fileInfo.Length.ToString());
                                 filesBadExp++;
                             }
