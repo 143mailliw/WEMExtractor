@@ -1,5 +1,4 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31911.196
 MinimumVisualStudioVersion = 10.0.40219.1
@@ -8,6 +7,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NameFinder", "AudioNamer\NameFinder.csproj", "{133489E1-AF68-4994-8AEB-8072C8D07BF1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Renamer", "Renamer\Renamer.csproj", "{21D687A4-FF59-4069-AA0B-BDF82D8CA575}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CUE4Parse", "CUE4Parse", "{14BE92AB-2786-413C-B498-CF63B1F23E97}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CUE4Parse", "CUE4Parse\CUE4Parse\CUE4Parse.csproj", "{685B27A1-FFB9-43BC-B46F-0C748314AC08}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmnesiaExtractor", "AmnesiaExtractor\AmnesiaExtractor.csproj", "{EC860972-50ED-492E-8F80-7788B35DF45D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,11 +32,22 @@ Global
 		{21D687A4-FF59-4069-AA0B-BDF82D8CA575}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{21D687A4-FF59-4069-AA0B-BDF82D8CA575}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{21D687A4-FF59-4069-AA0B-BDF82D8CA575}.Release|Any CPU.Build.0 = Release|Any CPU
+		{685B27A1-FFB9-43BC-B46F-0C748314AC08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{685B27A1-FFB9-43BC-B46F-0C748314AC08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{685B27A1-FFB9-43BC-B46F-0C748314AC08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{685B27A1-FFB9-43BC-B46F-0C748314AC08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC860972-50ED-492E-8F80-7788B35DF45D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC860972-50ED-492E-8F80-7788B35DF45D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC860972-50ED-492E-8F80-7788B35DF45D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC860972-50ED-492E-8F80-7788B35DF45D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E9F91CA2-4D40-4873-A435-A51B060A654D}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{685B27A1-FFB9-43BC-B46F-0C748314AC08} = {14BE92AB-2786-413C-B498-CF63B1F23E97}
 	EndGlobalSection
 EndGlobal
