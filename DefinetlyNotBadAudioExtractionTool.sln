@@ -14,6 +14,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CUE4Parse", "CUE4Parse\CUE4
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmnesiaExtractor", "AmnesiaExtractor\AmnesiaExtractor.csproj", "{EC860972-50ED-492E-8F80-7788B35DF45D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WEMSharp", "WEMSharp", "{124DE988-5C7D-4E56-B243-DAA0FE6A0F62}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WEMSharp", "WEMSharp\WEMSharp\WEMSharp.csproj", "{2EDFD763-C9CF-459E-9227-AFEBCAD33850}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,6 +44,10 @@ Global
 		{EC860972-50ED-492E-8F80-7788B35DF45D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EC860972-50ED-492E-8F80-7788B35DF45D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EC860972-50ED-492E-8F80-7788B35DF45D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2EDFD763-C9CF-459E-9227-AFEBCAD33850}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EDFD763-C9CF-459E-9227-AFEBCAD33850}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2EDFD763-C9CF-459E-9227-AFEBCAD33850}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EDFD763-C9CF-459E-9227-AFEBCAD33850}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -49,5 +57,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{685B27A1-FFB9-43BC-B46F-0C748314AC08} = {14BE92AB-2786-413C-B498-CF63B1F23E97}
+		{2EDFD763-C9CF-459E-9227-AFEBCAD33850} = {124DE988-5C7D-4E56-B243-DAA0FE6A0F62}
 	EndGlobalSection
 EndGlobal

@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CUE4Parse\CUE4Parse\CUE4Parse.csproj" />
+    <ProjectReference Include="..\WEMSharp\WEMSharp\WEMSharp.csproj" />
   </ItemGroup>
 
   <ItemGroup>
