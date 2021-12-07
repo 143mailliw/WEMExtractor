@@ -2,12 +2,10 @@
 using System.IO;
 using System.Linq;
 using System.Collections.Generic;
-using System.Diagnostics;
 using Newtonsoft.Json;
 using CUE4Parse.FileProvider;
 using CUE4Parse.Encryption.Aes;
 using CUE4Parse.UE4.Objects.Core.Misc;
-using WEMSharp;
 
 // See https://aka.ms/new-console-template for more information
 Console.WriteLine("william341's AmnesiaExtractor");
@@ -16,6 +14,7 @@ Console.WriteLine("Special thanks:");
 Console.WriteLine("        CUE4Parse team: UE4 asset parsing library");
 Console.WriteLine("        Crauzer: WEMSharp library, which I modified to work on .NET 6 (https://github.com/143mailliw/WEMSharp)");
 Console.WriteLine("        Yirkha, ItsBranK, Jiri Hruska: various versions of Revorb");
+Console.WriteLine("        vgmstream team: fallback OGG handling, Platinum ADPCM handling");
 Console.WriteLine();
 
 if(args.Length > 0) {
@@ -78,17 +77,17 @@ if(args.Length > 0) {
       string basePath = Path.Combine(AppContext.BaseDirectory, "KidAMnesiaExported");
       string wemPath = Path.Combine(AppContext.BaseDirectory, "KidAMnesiaExported", "wems");
       string unknownPath = Path.Combine(AppContext.BaseDirectory, "KidAMnesiaExported", "unknown");
-      string oggPath = Path.Combine(AppContext.BaseDirectory, "KidAMnesiaExported", "ogg");
+      string oggPath = Path.Combine(AppContext.BaseDirectory, "KidAMnesiaExported", "converted");
 
       Console.Write("Would you like to rename the files to their known names? Some files do not have known names and will just be named their ID numbers. (Y/n) ");
       ConsoleKeyInfo renameKey = Console.ReadKey();
       Console.WriteLine();
 
-      Console.Write("Would you like to convert all convertable files into OGG files? Some files cannot be converted (you will be notified). All WEM files will still be present. (Y/n) "); 
+      Console.Write("Would you like to losslessly convert all files into WAV and OGG? All WEM files will still be present. (Y/n) "); 
       ConsoleKeyInfo oggKey = Console.ReadKey();
       Console.WriteLine();
 
-      if(Directory.Exists(basePath) && !(args.Length > 1 && args[1] == "ogg") ) {
+      if(Directory.Exists(basePath) && !(args.Length > 1 && args.Contains("ogg")) ) {
         Console.Write(basePath + " already exists. Press Y to delete or any other key to exit. (y/N) ");
         if(Console.ReadKey().Key == ConsoleKey.Y) {
           Directory.Delete(basePath, true);
@@ -108,7 +107,7 @@ if(args.Length > 0) {
       }
 
       if(args.Length > 1) {
-        if(args[1] == "debug") {
+        if(args.Contains("debug")) {
           AmnesiaExtractor.DisplayOptions.DisplayDebug = true;
         }
       }
@@ -124,7 +123,7 @@ if(args.Length > 0) {
 
       // I don't know a better way to do this and CUE4Parse has basically no documentation
       int scanned = 0;
-      if(!(args.Length > 1 && args[1] == "ogg")) {
+      if(!(args.Length > 1 && args.Contains("ogg"))) {
         foreach(var file in provider.Files) {
           scanned++;
           Console.Write("\rScanning files for audio to export: " + scanned + "/" + provider.Files.Count());
@@ -193,66 +192,34 @@ if(args.Length > 0) {
           }
           Console.WriteLine();
         }
+        Console.WriteLine();
       }
 
       // convert files
       if(oggKey.Key == ConsoleKey.Enter || oggKey.Key == ConsoleKey.Y) {
         scanned = 0;
         int failed = 0;
+        int unknownCodec = 0;
 
-        string revorbBinary = OperatingSystem.IsWindows() ? "Revorb.exe" : "revorb";
-        string revorbPath = Path.Combine(AppContext.BaseDirectory, revorbBinary);
-        bool useRevorb = false;
+        AmnesiaExtractor.Converter converter = new AmnesiaExtractor.Converter();
 
-        if(File.Exists(revorbPath)) {
-          if(OperatingSystem.IsLinux()) {
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("The Linux Revorb binary is compiled on Arch Linux.");
-            Console.WriteLine("If your distro ships an out of date version of glibc, you may encounter a crash here.");
-            Console.ResetColor();
-          }
-          useRevorb = true;
-        } else {
-          Console.ForegroundColor = ConsoleColor.Yellow;
-          Console.WriteLine("Revorb binary not found, ogg file integrity may be compromised.");
-          if(OperatingSystem.IsMacOS()) {
-            Console.WriteLine("This program does not come with Revorb on macOS. You will have to build it yourself.");
-          }
-          Console.ResetColor();
-        }
-
-
-        Console.ForegroundColor = ConsoleColor.Yellow;
-        Console.WriteLine("WARNING: Ogg support is (and always will be) incomplete. You should expect about ~200 files to fail. The majority of them are sound effects, about ~75 aren't.");
-        Console.ResetColor();
+        converter.VerifyFiles();
+        converter.oggPath = oggPath;
 
         string[] wems = Directory.GetFiles(wemPath);
         foreach(var wem in wems) {
           scanned++;
-          Console.Write("\rConverting to Ogg: " + scanned + "/" + wems.Length + " (" + failed + "/" + scanned + " failed)"); 
-          try {
-            WEMFile file = new WEMFile(wem, WEMForcePacketFormat.NoForcePacketFormat);
-            string name = wem.Split(Path.DirectorySeparatorChar).Last().Replace(".wem", ".ogg");
-            file.GenerateOGG(Path.Combine(oggPath, name), Path.Combine(AppContext.BaseDirectory, "codebook.bin"), false, false);
-            if(useRevorb) {
-              ProcessStartInfo startInfo = new ProcessStartInfo();
-              
-              startInfo.CreateNoWindow = true;
-              startInfo.UseShellExecute = false;
-              startInfo.RedirectStandardOutput = true;
-              startInfo.RedirectStandardError = true;
-              startInfo.RedirectStandardInput = true;
-              startInfo.WindowStyle = ProcessWindowStyle.Hidden;
-              startInfo.FileName = revorbPath;
-              startInfo.Arguments = "\"" + Path.Combine(oggPath, name) + "\"";
+          Console.Write("\rConverting files: " + scanned + "/" + wems.Length + " (" + failed + "/" + scanned + " failed, " + unknownCodec + "/" + scanned + " unknown)"); 
 
-              Process? process = Process.Start(startInfo);
-              if(process != null) {
-                process.WaitForExit();
-              }
+          if(!args.Contains("dry")) {
+            switch (converter.ConvertWem(wem)) {
+              case 1:
+                failed++;
+                break;
+              case 2:
+                unknownCodec++;
+                break;
             }
-          } catch {
-            failed++;
           }
         }
         Console.WriteLine();

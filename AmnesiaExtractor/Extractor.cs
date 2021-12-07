@@ -38,10 +38,12 @@ namespace AmnesiaExtractor {
           byte[] offset = new byte[4];
 
           offset = exp[124..128];
-          Array.Reverse(offset);
+          // Array.Reverse(offset);
+
+          int offsetInt = BitConverter.ToInt32(offset);
 
           // it's too late to figure out how to do this right
-          int offsetInt = int.Parse(Convert.ToHexString(offset), System.Globalization.NumberStyles.HexNumber);
+          // int offsetInt = int.Parse(Convert.ToHexString(offset), System.Globalization.NumberStyles.HexNumber);
 
           if(AmnesiaExtractor.DisplayOptions.DisplayDebug) {
             Console.WriteLine("Offset: 0x" + Convert.ToHexString(offset));
